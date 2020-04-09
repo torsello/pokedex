@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `pokedex`.`pokemons` (
   `pokemonId` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `evolvesFromId` INT NOT NULL,
-  `evolveLvl` INT NOT NULL,
+  `evolveLvl` INT NULL,
   PRIMARY KEY (`pokemonId`),
   INDEX `fk_pokemon_pokemon_idx` (`evolvesFromId` ASC) VISIBLE,
   CONSTRAINT `fk_pokemon_pokemon`
