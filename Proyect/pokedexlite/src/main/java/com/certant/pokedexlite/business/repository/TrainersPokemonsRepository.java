@@ -21,5 +21,13 @@ public interface TrainersPokemonsRepository extends JpaRepository<TrainersPokemo
 	 * Method definition to search all the TrainersPokemons
 	 */
 	public List<TrainersPokemons> findAll();
+	
+	/**
+	 * Method definition to search TrainersPokemons by id
+	 * 
+	 * @param trainersPokemonsId
+	 * @return
+	 */
+	public TrainersPokemons findByTrainersPokemonsId(String trainersPokemonsId);
 
 }

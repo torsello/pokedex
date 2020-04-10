@@ -25,7 +25,7 @@ import lombok.Data;
 public class TrainersPokemons {
 
 	@EmbeddedId
-	private TrainersPokemonsId id;
+	private TrainersPokemonsId trainersPokemonsId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("trainerId")

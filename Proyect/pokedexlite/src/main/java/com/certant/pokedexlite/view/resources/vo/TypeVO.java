@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.certant.pokedexlite.model;
+package com.certant.pokedexlite.view.resources.vo;
 
 import java.util.Set;
 
@@ -16,30 +16,31 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 
 /**
- * Clase que representa la tabla Ability
+ * Clase que representa la tabla Type
  * 
  * @author Matias
  *
  */
 @Data
 @Entity
-@Table(name = "ability")
-public class Ability {
+@Table(name = "type")
+public class TypeVO {
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-	private String abilityId;
-	private String ability;
-	@ManyToMany(mappedBy = "pokemonsabilities")
-	private Set<Pokemon> pokemonsabilities;
-	
-	public Ability() {
+	private String typeId;
+	private String type;
+
+	@ManyToMany(mappedBy = "pokemonstypes")
+	private Set<PokemonVO> pokemonstypes;
+
+	public TypeVO() {
 
 	}
 
-	public Ability(String ability) {
-		this.ability = ability;
+	public TypeVO(String type) {
+		this.type = type;
 	}
 
 }

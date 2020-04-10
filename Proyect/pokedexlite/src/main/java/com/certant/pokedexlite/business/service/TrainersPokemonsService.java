@@ -63,4 +63,14 @@ public class TrainersPokemonsService {
 		return this.trainersPokemonsRepository.findAll();
 	}
 	
+	/**
+	 * Method definition to search TrainersPokemons by id
+	 * 
+	 * @param trainersPokemonsId
+	 * @return
+	 */
+	public TrainersPokemons findByTrainersPokemonsId(String trainersPokemonsId) {
+		return this.trainersPokemonsRepository.findByTrainersPokemonsId(trainersPokemonsId);
+	}
+	
 }

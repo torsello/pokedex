@@ -22,4 +22,11 @@ public interface TypeRepository extends JpaRepository<Type, String> {
 	 */
 	public List<Type> findAll();
 
+	/**
+	 * Method definition to search Types by id
+	 * 
+	 * @param typeId
+	 * @return
+	 */
+	public Type findByTypeId(String typeId);
 }
