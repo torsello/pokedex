@@ -22,25 +22,7 @@ import lombok.Data;
  *
  */
 @Data
-@Entity
-@Table(name = "type")
 public class TypeVO {
-
-	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String typeId;
 	private String type;
-
-	@ManyToMany(mappedBy = "pokemonstypes")
-	private Set<PokemonVO> pokemonstypes;
-
-	public TypeVO() {
-
-	}
-
-	public TypeVO(String type) {
-		this.type = type;
-	}
-
 }

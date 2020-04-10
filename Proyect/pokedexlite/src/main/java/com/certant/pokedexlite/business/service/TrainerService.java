@@ -81,7 +81,7 @@ public class TrainerService {
 	}
 
 	/**
-	 * Method definition to search all the pokemons
+	 * Method definition to search all the trainers
 	 */
 	public List<Trainer> findAll() {
 		return this.trainerRepository.findAll();

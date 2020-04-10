@@ -60,7 +60,7 @@ public class TypeService {
 	}
 
 	/**
-	 * Method definition to search all the TrainersPokemons
+	 * Method definition to search all the Types
 	 */
 	public List<Type> findAll() {
 		return this.typeRepository.findAll();
