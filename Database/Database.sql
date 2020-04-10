@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `pokedex`.`pokemons` (
   `evolvesFromId` INT NULL,
   `evolveLvl` INT NULL,
   PRIMARY KEY (`pokemonId`),
-  INDEX `fk_pokemon_pokemon_idx` (`evolvesFromId` ASC) VISIBLE,
+  INDEX `fk_pokemon_pokemon_idx` (`evolvesFromId` ASC),
   CONSTRAINT `fk_pokemon_pokemon`
     FOREIGN KEY (`evolvesFromId`)
     REFERENCES `pokedex`.`pokemons` (`pokemonId`)
@@ -70,8 +70,8 @@ CREATE TABLE IF NOT EXISTS `pokedex`.`trainersPokemons` (
   `trainerId` INT NOT NULL,
   `pokemonId` INT NOT NULL,
   `foundedLvl` INT NOT NULL,
-  INDEX `fk_users_has_pokemons_pokemons1_idx` (`pokemonId` ASC) VISIBLE,
-  INDEX `fk_pokedex_trainer1_idx` (`trainerId` ASC) VISIBLE,
+  INDEX `fk_users_has_pokemons_pokemons1_idx` (`pokemonId` ASC) ,
+  INDEX `fk_pokedex_trainer1_idx` (`trainerId` ASC) ,
   PRIMARY KEY (`trainerId`, `pokemonId`),
   CONSTRAINT `fk_users_has_pokemons_pokemons1`
     FOREIGN KEY (`pokemonId`)
@@ -93,8 +93,8 @@ CREATE TABLE IF NOT EXISTS `pokedex`.`pokemonsTypes` (
   `pokemonId` INT NOT NULL,
   `typeId` INT NOT NULL,
   PRIMARY KEY (`pokemonId`, `typeId`),
-  INDEX `fk_pokemons_has_types_types1_idx` (`typeId` ASC) VISIBLE,
-  INDEX `fk_pokemons_has_types_pokemons1_idx` (`pokemonId` ASC) VISIBLE,
+  INDEX `fk_pokemons_has_types_types1_idx` (`typeId` ASC) ,
+  INDEX `fk_pokemons_has_types_pokemons1_idx` (`pokemonId` ASC) ,
   CONSTRAINT `fk_pokemons_has_types_pokemons1`
     FOREIGN KEY (`pokemonId`)
     REFERENCES `pokedex`.`pokemons` (`pokemonId`)
@@ -115,8 +115,8 @@ CREATE TABLE IF NOT EXISTS `pokedex`.`pokemonsAbilities` (
   `pokemonId` INT NOT NULL,
   `abilityId` INT NOT NULL,
   PRIMARY KEY (`pokemonId`, `abilityId`),
-  INDEX `fk_abilities_has_pokemons_pokemons1_idx` (`pokemonId` ASC) VISIBLE,
-  INDEX `fk_abilities_has_pokemons_abilities1_idx` (`abilityId` ASC) VISIBLE,
+  INDEX `fk_abilities_has_pokemons_pokemons1_idx` (`pokemonId` ASC) ,
+  INDEX `fk_abilities_has_pokemons_abilities1_idx` (`abilityId` ASC) ,
   CONSTRAINT `fk_abilities_has_pokemons_abilities1`
     FOREIGN KEY (`abilityId`)
     REFERENCES `pokedex`.`abilities` (`abilityId`)
