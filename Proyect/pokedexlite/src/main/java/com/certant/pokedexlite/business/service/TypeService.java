@@ -6,6 +6,7 @@ package com.certant.pokedexlite.business.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.certant.pokedexlite.business.repository.TypeRepository;
 import com.certant.pokedexlite.model.Type;
@@ -17,6 +18,7 @@ import com.certant.pokedexlite.model.Type;
  *
  */
 @Service
+@Transactional(readOnly = true)
 public class TypeService {
 
 	private final TypeRepository typeRepository;
@@ -31,6 +33,7 @@ public class TypeService {
 	 * @param type
 	 * @return
 	 */
+	@Transactional
 	public Type create(Type type) {
 		return this.typeRepository.save(type);
 	}
@@ -41,6 +44,7 @@ public class TypeService {
 	 * @param type
 	 * @return
 	 */
+	@Transactional
 	public Type update(Type type) {
 		return this.typeRepository.save(type);
 	}
@@ -50,6 +54,7 @@ public class TypeService {
 	 * 
 	 * @param type
 	 */
+	@Transactional
 	public void delete(Type type) {
 		this.typeRepository.delete(type);
 	}

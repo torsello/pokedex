@@ -6,6 +6,7 @@ package com.certant.pokedexlite.business.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.certant.pokedexlite.business.repository.TrainerRepository;
 import com.certant.pokedexlite.model.Trainer;
@@ -17,6 +18,7 @@ import com.certant.pokedexlite.model.Trainer;
  *
  */
 @Service
+@Transactional(readOnly = true)
 public class TrainerService {
 
 	private final TrainerRepository trainerRepository;
@@ -31,6 +33,7 @@ public class TrainerService {
 	 * @param trainer
 	 * @return
 	 */
+	@Transactional
 	public Trainer create(Trainer trainer) {
 		return this.trainerRepository.save(trainer);
 	}
@@ -41,6 +44,7 @@ public class TrainerService {
 	 * @param trainer
 	 * @return
 	 */
+	@Transactional
 	public Trainer update(Trainer trainer) {
 		return this.trainerRepository.save(trainer);
 	}
@@ -51,6 +55,7 @@ public class TrainerService {
 	 * @param trainer
 	 * @return
 	 */
+	@Transactional
 	public void delete(Trainer trainer) {
 		this.trainerRepository.delete(trainer);
 	}

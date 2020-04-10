@@ -6,6 +6,7 @@ package com.certant.pokedexlite.business.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.certant.pokedexlite.business.repository.AbilityRepository;
 import com.certant.pokedexlite.model.Ability;
@@ -17,6 +18,7 @@ import com.certant.pokedexlite.model.Ability;
  *
  */
 @Service
+@Transactional(readOnly=true)
 public class AbilityService {
 
 	private AbilityRepository abilityRepository;
@@ -31,6 +33,7 @@ public class AbilityService {
 	 * @param ability
 	 * @return
 	 */
+	@Transactional
 	public Ability create(Ability ability) {
 		return this.abilityRepository.save(ability);
 	}
@@ -41,6 +44,7 @@ public class AbilityService {
 	 * @param ability
 	 * @return
 	 */
+	@Transactional
 	public Ability update(Ability ability) {
 		return this.abilityRepository.save(ability);
 	}
@@ -50,6 +54,7 @@ public class AbilityService {
 	 * 
 	 * @param ability
 	 */
+	@Transactional
 	public void delete(Ability ability) {
 		this.abilityRepository.delete(ability);
 	}
