@@ -18,6 +18,14 @@ import com.certant.pokedexlite.model.Pokemon;
 public interface PokemonRepository extends JpaRepository<Pokemon, String> {
 
 	/**
+	 * Method definition to search pokemons by id
+	 * 
+	 * @param pokemonId
+	 * @return
+	 */
+	public Pokemon findByPokemonId(String pokemonId);
+	
+	/**
 	 * Method definition to search all the pokemons
 	 */
 	public List<Pokemon> findAll();
