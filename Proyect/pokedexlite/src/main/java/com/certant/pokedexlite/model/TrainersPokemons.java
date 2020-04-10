@@ -21,23 +21,23 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="trainerspokemons")
+@Table(name = "trainerspokemons")
 public class TrainersPokemons {
-	
-    @EmbeddedId
-    private TrainersPokemonsId id;
- 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @MapsId("trainerId")
-    @JoinColumn(name="trainerId")
-    private Trainer trainer;
- 
-    @ManyToOne(fetch= FetchType.LAZY)
-    @MapsId("pokemonId")
-    @JoinColumn(name="pokemonId")
-    private Pokemon pokemon;
 
-    @Column(name="foundedLvl")
+	@EmbeddedId
+	private TrainersPokemonsId id;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("trainerId")
+	@JoinColumn(name = "trainerId")
+	private Trainer trainer;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@MapsId("pokemonId")
+	@JoinColumn(name = "pokemonId")
+	private Pokemon pokemon;
+
+	@Column(name = "foundedLvl")
 	private int foundedLvl;
 
 	public TrainersPokemons(Trainer trainer, Pokemon pokemon, int foundedLvl) {
@@ -45,9 +45,9 @@ public class TrainersPokemons {
 		this.pokemon = pokemon;
 		this.foundedLvl = foundedLvl;
 	}
-	
+
 	public TrainersPokemons() {
-		
+
 	}
-	
+
 }

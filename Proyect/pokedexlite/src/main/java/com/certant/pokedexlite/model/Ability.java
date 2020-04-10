@@ -23,26 +23,23 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Table(name="ability")
+@Table(name = "ability")
 public class Ability {
 
 	@Id
 	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name="system-uuid", strategy="uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String abilityId;
 	private String ability;
 	@ManyToMany(mappedBy = "pokemonsabilities")
 	private Set<Pokemon> pokemonsabilities;
-	
-	
+
 	public Ability() {
-		
+
 	}
-	
+
 	public Ability(String ability) {
 		this.ability = ability;
 	}
-	
-	
-	
+
 }

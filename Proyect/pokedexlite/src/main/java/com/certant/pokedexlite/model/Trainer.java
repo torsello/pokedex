@@ -3,14 +3,12 @@
  */
 package com.certant.pokedexlite.model;
 
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,34 +22,31 @@ import lombok.Data;
 
 /**
  * Clase que representa la tabla Trainer
+ * 
  * @author Matias
  *
  */
 @Data
 @Entity
-@Table(name="trainer")
+@Table(name = "trainer")
 public class Trainer {
 	@Id
 	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name="system-uuid", strategy="uuid")
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String trainerId;
+	@Column(unique = true)
 	private String trainerName;
 	private String trainerPass;
-    @OneToMany(
-            mappedBy = "trainer",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-        )
-    private Set<TrainersPokemons> trainersPokemons;
+	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<TrainersPokemons> trainersPokemons;
 
-	
 	public Trainer() {
-		
+
 	}
-	
+
 	public Trainer(String trainerName, String trainerPass) {
-		this.trainerName=trainerName;
-		this.trainerPass=trainerPass;
+		this.trainerName = trainerName;
+		this.trainerPass = trainerPass;
 	}
-	
+
 }
