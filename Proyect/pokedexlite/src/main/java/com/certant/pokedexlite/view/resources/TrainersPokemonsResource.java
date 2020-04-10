@@ -69,7 +69,6 @@ public class TrainersPokemonsResource {
 		if (tp == null) {
 			return new ResponseEntity<TrainersPokemons>(HttpStatus.NOT_FOUND);
 		} else {
-			tp.setTrainersPokemonsId(tpVo.getTrainersPokemonsId());
 			tp.setPokemon(tpVo.getPokemon());
 			tp.setTrainer(tpVo.getTrainer());
 			tp.setFoundedLvl(tpVo.getFoundedLvl());

@@ -18,7 +18,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 
 /**
- * Clase que representa la tabla Trainer
+ * Trainer representative class
  * 
  * @author Matias
  *

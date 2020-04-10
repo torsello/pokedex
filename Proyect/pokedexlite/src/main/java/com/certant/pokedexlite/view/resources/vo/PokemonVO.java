@@ -28,7 +28,6 @@ import lombok.Data;
 @Data
 public class PokemonVO {
 
-	private String pokemonId;
 	private String name;
 	private Pokemon evolution;
 	private int evolveLvl;

@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 
 /**
- * Clase que representa la tabla Ability
+ * Ability representative class
  * 
  * @author Matias
  *
@@ -33,7 +33,7 @@ public class Ability {
 	private String ability;
 	@ManyToMany(mappedBy = "pokemonsabilities")
 	private Set<Pokemon> pokemonsabilities;
-	
+
 	public Ability() {
 
 	}

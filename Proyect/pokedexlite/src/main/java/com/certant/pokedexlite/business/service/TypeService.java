@@ -65,7 +65,7 @@ public class TypeService {
 	public List<Type> findAll() {
 		return this.typeRepository.findAll();
 	}
-	
+
 	/**
 	 * Method definition to search Types by id
 	 * 

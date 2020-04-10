@@ -37,75 +37,74 @@ import io.swagger.annotations.ApiResponses;
 public class AbilityResource {
 
 	private AbilityService abilityService;
-	
+
 	public AbilityResource(AbilityService abilityService) {
-		this.abilityService=abilityService;
+		this.abilityService = abilityService;
 	}
-	
+
 	@PostMapping
-	@ApiOperation(value= "Create Ability", notes = "Ability creator service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Ability successfully created"),
-			@ApiResponse(code = 400, message = "Invalid request")})
-	public ResponseEntity<Ability> createAbility(@RequestBody AbilityVO abilityVo){
+	@ApiOperation(value = "Create Ability", notes = "Ability creator service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Ability successfully created"),
+			@ApiResponse(code = 400, message = "Invalid request") })
+	public ResponseEntity<Ability> createAbility(@RequestBody AbilityVO abilityVo) {
 		Ability ability = new Ability();
-		
+
 		ability.setAbility(abilityVo.getAbility());
-		
+
 		return new ResponseEntity<>(this.abilityService.create(ability), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/{abilityId}")
-	@ApiOperation(value= "Update Ability", notes = "Ability updater service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Ability successfully updated"),
-			@ApiResponse(code = 404, message = "Ability not found")})
-	public ResponseEntity<Ability> updateAbility(@PathVariable("abilityId") String abilityId, 
-			AbilityVO abilityVo){
-		
+	@ApiOperation(value = "Update Ability", notes = "Ability updater service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Ability successfully updated"),
+			@ApiResponse(code = 404, message = "Ability not found") })
+	public ResponseEntity<Ability> updateAbility(@PathVariable("abilityId") String abilityId, AbilityVO abilityVo) {
+
 		Ability ability = this.abilityService.findByAbilityId(abilityId);
-		
-		if(ability == null) {
+
+		if (ability == null) {
 			return new ResponseEntity<Ability>(HttpStatus.NOT_FOUND);
-		}else {
-			ability.setAbilityId(abilityVo.getAbilityId());
+		} else {
+			// ability.setAbilityId(abilityVo.getAbilityId());
 			ability.setAbility(abilityVo.getAbility());
 		}
-		
+
 		return new ResponseEntity<>(this.abilityService.update(ability), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{abilityId}")
-	@ApiOperation(value= "Delete Ability", notes = "Ability dropper service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Ability successfully deleted"),
-			@ApiResponse(code = 404, message = "Ability not found")})
-	public void removeAbility(@PathVariable("abilityId") String abilityId){
+	@ApiOperation(value = "Delete Ability", notes = "Ability dropper service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Ability successfully deleted"),
+			@ApiResponse(code = 404, message = "Ability not found") })
+	public void removeAbility(@PathVariable("abilityId") String abilityId) {
 		Ability ability = this.abilityService.findByAbilityId(abilityId);
-		
-		if(ability != null) {
+
+		if (ability != null) {
 			this.abilityService.delete(ability);
 		}
 	}
-	
+
 	@GetMapping
-	@ApiOperation(value= "List all the Abilities", notes = "Service to list all the abilities")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Abilities found"),
-			@ApiResponse(code = 404, message = "Abilities not found")})
-	public ResponseEntity<List<Ability>> findAll(){
+	@ApiOperation(value = "List all the Abilities", notes = "Service to list all the abilities")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Abilities found"),
+			@ApiResponse(code = 404, message = "Abilities not found") })
+	public ResponseEntity<List<Ability>> findAll() {
 		return ResponseEntity.ok(this.abilityService.findAll());
 	}
-	
+
 	@GetMapping("/{abilityId}")
-	@ApiOperation(value= "List an Ability", notes = "Service to list an ability")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Ability found"),
-			@ApiResponse(code = 404, message = "Ability not found")})
-	public ResponseEntity<Ability> findByAbilityId(@PathVariable("abilityId") String abilityId){
-		
+	@ApiOperation(value = "List an Ability", notes = "Service to list an ability")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Ability found"),
+			@ApiResponse(code = 404, message = "Ability not found") })
+	public ResponseEntity<Ability> findByAbilityId(@PathVariable("abilityId") String abilityId) {
+
 		Ability ability = this.abilityService.findByAbilityId(abilityId);
-		
-		if(ability == null) {
+
+		if (ability == null) {
 			return new ResponseEntity<Ability>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		return new ResponseEntity<>(this.abilityService.findByAbilityId(abilityId), HttpStatus.OK);
 	}
-	
+
 }

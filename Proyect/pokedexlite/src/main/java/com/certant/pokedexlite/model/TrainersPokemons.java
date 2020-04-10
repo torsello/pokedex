@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import lombok.Data;
 
 /**
- * Clase que representa la tabla TrainersPokemons
+ * TrainersPokemons representative class
  * 
  * @author Matias
  *

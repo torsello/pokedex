@@ -24,7 +24,7 @@ public interface PokemonRepository extends JpaRepository<Pokemon, String> {
 	 * @return
 	 */
 	public Pokemon findByPokemonId(String pokemonId);
-	
+
 	/**
 	 * Method definition to search all the pokemons
 	 */

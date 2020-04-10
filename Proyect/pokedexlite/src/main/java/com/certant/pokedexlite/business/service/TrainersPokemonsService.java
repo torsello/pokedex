@@ -20,15 +20,16 @@ import com.certant.pokedexlite.model.TrainersPokemons;
 @Service
 @Transactional(readOnly = true)
 public class TrainersPokemonsService {
-	
+
 	private final TrainersPokemonsRepository trainersPokemonsRepository;
 
 	public TrainersPokemonsService(TrainersPokemonsRepository trainersPokemonsRepository) {
 		this.trainersPokemonsRepository = trainersPokemonsRepository;
 	}
-	
+
 	/**
 	 * TrainersPokemons creator method
+	 * 
 	 * @param trainersPokemons
 	 * @return
 	 */
@@ -36,9 +37,10 @@ public class TrainersPokemonsService {
 	public TrainersPokemons create(TrainersPokemons trainersPokemons) {
 		return this.trainersPokemonsRepository.save(trainersPokemons);
 	}
-	
+
 	/**
 	 * TrainersPokemons updater method
+	 * 
 	 * @param trainersPokemons
 	 * @return
 	 */
@@ -46,23 +48,24 @@ public class TrainersPokemonsService {
 	public TrainersPokemons update(TrainersPokemons trainersPokemons) {
 		return this.trainersPokemonsRepository.save(trainersPokemons);
 	}
-	
+
 	/**
 	 * TrainersPokemons dropper method
+	 * 
 	 * @param trainersPokemons
 	 */
 	@Transactional
-	public void delete(TrainersPokemons trainersPokemons){
+	public void delete(TrainersPokemons trainersPokemons) {
 		this.trainersPokemonsRepository.delete(trainersPokemons);
 	}
-	
+
 	/**
 	 * Method definition to search all the TrainersPokemons
 	 */
-	public List<TrainersPokemons> findAll(){
+	public List<TrainersPokemons> findAll() {
 		return this.trainersPokemonsRepository.findAll();
 	}
-	
+
 	/**
 	 * Method definition to search TrainersPokemons by id
 	 * 
@@ -72,5 +75,5 @@ public class TrainersPokemonsService {
 	public TrainersPokemons findByTrainersPokemonsId(String trainersPokemonsId) {
 		return this.trainersPokemonsRepository.findByTrainersPokemonsId(trainersPokemonsId);
 	}
-	
+
 }

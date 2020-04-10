@@ -27,6 +27,7 @@ import io.swagger.annotations.ApiResponses;
 
 /**
  * Type web services class
+ * 
  * @author Matias
  *
  */
@@ -36,74 +37,72 @@ import io.swagger.annotations.ApiResponses;
 public class TypeResource {
 
 	private TypeService typeService;
-	
+
 	public TypeResource(TypeService typeService) {
-		this.typeService=typeService;
+		this.typeService = typeService;
 	}
-	
+
 	@PostMapping
-	@ApiOperation(value= "Create Type", notes = "Type creator service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Type successfully created"),
-			@ApiResponse(code = 400, message = "Invalid request")})
-	public ResponseEntity<Type> createType(@RequestBody  TypeVO typeVo){
-		Type type=new Type();
-		
+	@ApiOperation(value = "Create Type", notes = "Type creator service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Type successfully created"),
+			@ApiResponse(code = 400, message = "Invalid request") })
+	public ResponseEntity<Type> createType(@RequestBody TypeVO typeVo) {
+		Type type = new Type();
+
 		type.setType(typeVo.getType());
-		
+
 		return new ResponseEntity<>(this.typeService.create(type), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/{typeId}")
-	@ApiOperation(value= "Update Type", notes = "Type updater service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Type successfully updated"),
-			@ApiResponse(code = 404, message = "Type not found")})
-	public ResponseEntity<Type> updateType(@PathVariable("typeId") String typeId,
-			TypeVO typeVo){
-		
-		Type type=this.typeService.findByTypeId(typeId);
-		
-		if(type == null) {
+	@ApiOperation(value = "Update Type", notes = "Type updater service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Type successfully updated"),
+			@ApiResponse(code = 404, message = "Type not found") })
+	public ResponseEntity<Type> updateType(@PathVariable("typeId") String typeId, TypeVO typeVo) {
+
+		Type type = this.typeService.findByTypeId(typeId);
+
+		if (type == null) {
 			return new ResponseEntity<Type>(HttpStatus.NOT_FOUND);
-		}else {
-			type.setTypeId(typeVo.getTypeId());
+		} else {
 			type.setType(typeVo.getType());
 		}
-		
+
 		return new ResponseEntity<>(this.typeService.update(type), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{typeId}")
-	@ApiOperation(value= "Delete type", notes = "Type dropper service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Type successfully deleted"),
-			@ApiResponse(code = 404, message = "Type not found")})
+	@ApiOperation(value = "Delete type", notes = "Type dropper service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Type successfully deleted"),
+			@ApiResponse(code = 404, message = "Type not found") })
 	public void removeType(@PathVariable("typeId") String typeId) {
-		Type type= this.typeService.findByTypeId(typeId);
-		
-		if(type!=null) {
+		Type type = this.typeService.findByTypeId(typeId);
+
+		if (type != null) {
 			this.typeService.delete(type);
 		}
 	}
-	
+
 	@GetMapping
-	@ApiOperation(value= "List all the types", notes = "Service to list all the types")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Types found"),
-			@ApiResponse(code = 404, message = "Types not found")})
-	public ResponseEntity<List<Type>> findAll(){
+	@ApiOperation(value = "List all the types", notes = "Service to list all the types")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Types found"),
+			@ApiResponse(code = 404, message = "Types not found") })
+	public ResponseEntity<List<Type>> findAll() {
 		return ResponseEntity.ok(this.typeService.findAll());
 	}
-	
+
 	@GetMapping("/{typeId}")
-	@ApiOperation(value= "List a type", notes = "Service to list a types")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Type found"),
-			@ApiResponse(code = 404, message = "Type not found")})
-	public ResponseEntity<Type> findByTypeId(@PathVariable("typeId") String typeId){
-		
-		Type type=this.typeService.findByTypeId(typeId);
-		
-		if(type == null) {
+	@ApiOperation(value = "List a type", notes = "Service to list a types")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Type found"),
+			@ApiResponse(code = 404, message = "Type not found") })
+	public ResponseEntity<Type> findByTypeId(@PathVariable("typeId") String typeId) {
+
+		Type type = this.typeService.findByTypeId(typeId);
+
+		if (type == null) {
 			return new ResponseEntity<Type>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		return new ResponseEntity<>(this.typeService.findByTypeId(typeId), HttpStatus.OK);
 	}
 }

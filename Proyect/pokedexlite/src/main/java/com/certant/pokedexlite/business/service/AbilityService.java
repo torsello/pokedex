@@ -18,7 +18,7 @@ import com.certant.pokedexlite.model.Ability;
  *
  */
 @Service
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public class AbilityService {
 
 	private AbilityRepository abilityRepository;
@@ -65,7 +65,7 @@ public class AbilityService {
 	public List<Ability> findAll() {
 		return this.abilityRepository.findAll();
 	}
-	
+
 	/**
 	 * Method definition to search abilities by id
 	 * 

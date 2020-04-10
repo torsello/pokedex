@@ -18,7 +18,7 @@ import com.certant.pokedexlite.model.Pokemon;
  *
  */
 @Service
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 public class PokemonService {
 
 	private final PokemonRepository pokemonRepository;

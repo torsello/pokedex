@@ -22,7 +22,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 
 /**
- * Clase que representa la tabla Pokemons
+ * Pokemons representative class
  * 
  * @author Matias
  *
@@ -41,7 +41,7 @@ public class Pokemon {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(columnDefinition = "text", name = "evolvesFromId")
 	private Pokemon evolution;
-	@OneToMany(mappedBy="evolution", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "evolution", cascade = CascadeType.ALL)
 	private Set<Pokemon> evolutions;
 	@Column(nullable = true)
 	private int evolveLvl;

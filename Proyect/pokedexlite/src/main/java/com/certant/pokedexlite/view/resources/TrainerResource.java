@@ -27,6 +27,7 @@ import io.swagger.annotations.ApiResponses;
 
 /**
  * Trainer web service class
+ * 
  * @author Matias
  *
  */
@@ -36,91 +37,90 @@ import io.swagger.annotations.ApiResponses;
 public class TrainerResource {
 
 	private TrainerService trainerService;
-	
+
 	public TrainerResource(TrainerService trainerService) {
-		this.trainerService=trainerService;
+		this.trainerService = trainerService;
 	}
-	
+
 	@PostMapping
-	@ApiOperation(value= "Create Trainer", notes = "Trainer creator service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Trainer successfully created"),
-			@ApiResponse(code = 400, message = "Invalid request")})
-	public ResponseEntity<Trainer> createTrainer(@RequestBody TrainerVO trainerVo){
+	@ApiOperation(value = "Create Trainer", notes = "Trainer creator service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Trainer successfully created"),
+			@ApiResponse(code = 400, message = "Invalid request") })
+	public ResponseEntity<Trainer> createTrainer(@RequestBody TrainerVO trainerVo) {
 		Trainer trainer = new Trainer();
-		
+
 		trainer.setTrainerName(trainerVo.getTrainerName());
 		trainer.setTrainerPass(trainerVo.getTrainerPass());
-		
+
 		return new ResponseEntity<>(this.trainerService.create(trainer), HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping("/{trainerId}")
-	@ApiOperation(value= "Update Trainer", notes = "Trainer updater service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Trainer successfully updated"),
-			@ApiResponse(code = 404, message = "Trainer not found")})
-	public ResponseEntity<Trainer> updateTrainer(@PathVariable("trainerId") String trainerId, 
-			TrainerVO trainerVo){
-		
+	@ApiOperation(value = "Update Trainer", notes = "Trainer updater service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Trainer successfully updated"),
+			@ApiResponse(code = 404, message = "Trainer not found") })
+	public ResponseEntity<Trainer> updateTrainer(@PathVariable("trainerId") String trainerId, TrainerVO trainerVo) {
+
 		Trainer trainer = this.trainerService.findByTrainerId(trainerId);
-		
-		if(trainer == null) {
+
+		if (trainer == null) {
 			return new ResponseEntity<Trainer>(HttpStatus.NOT_FOUND);
-		}else {
+		} else {
 			trainer.setTrainerName(trainerVo.getTrainerName());
 			trainer.setTrainerPass(trainerVo.getTrainerPass());
 		}
-		
+
 		return new ResponseEntity<>(this.trainerService.update(trainer), HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping("/{trainerId}")
-	@ApiOperation(value= "Delete Trainer", notes = "Trainer dropper service")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Trainer successfully deleted"),
-			@ApiResponse(code = 404, message = "Trainer not found")})
-	public void removeTrainer(@PathVariable("trainerId") String trainerId){
+	@ApiOperation(value = "Delete Trainer", notes = "Trainer dropper service")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Trainer successfully deleted"),
+			@ApiResponse(code = 404, message = "Trainer not found") })
+	public void removeTrainer(@PathVariable("trainerId") String trainerId) {
 		Trainer trainer = this.trainerService.findByTrainerId(trainerId);
-		
-		if(trainer != null) {
+
+		if (trainer != null) {
 			this.trainerService.delete(trainer);
 		}
 	}
-	
+
 	@GetMapping
-	@ApiOperation(value= "List all the trainers", notes = "Service to list all the trainers")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "trainers found"),
-			@ApiResponse(code = 404, message = "trainers not found")})
-	public ResponseEntity<List<Trainer>> findAll(){
+	@ApiOperation(value = "List all the trainers", notes = "Service to list all the trainers")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "trainers found"),
+			@ApiResponse(code = 404, message = "trainers not found") })
+	public ResponseEntity<List<Trainer>> findAll() {
 		return ResponseEntity.ok(this.trainerService.findAll());
 	}
-	
+
 	@GetMapping("/{trainerId}")
-	@ApiOperation(value= "List an Trainer", notes = "Service to list an trainer")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Trainer found"),
-			@ApiResponse(code = 404, message = "Trainer not found")})
-	public ResponseEntity<Trainer> findByTrainerId(@PathVariable("trainerId") String trainerId){
-		
+	@ApiOperation(value = "List an Trainer", notes = "Service to list an trainer")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Trainer found"),
+			@ApiResponse(code = 404, message = "Trainer not found") })
+	public ResponseEntity<Trainer> findByTrainerId(@PathVariable("trainerId") String trainerId) {
+
 		Trainer trainer = this.trainerService.findByTrainerId(trainerId);
-		
-		if(trainer == null) {
+
+		if (trainer == null) {
 			return new ResponseEntity<Trainer>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		return new ResponseEntity<>(this.trainerService.findByTrainerId(trainerId), HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/{name}")
-	@ApiOperation(value= "List an Trainer", notes = "Service to list an trainer")
-	@ApiResponses(value= {@ApiResponse(code = 201, message = "Trainer found"),
-			@ApiResponse(code = 404, message = "Trainer not found")})
-	public ResponseEntity<Trainer> findByName(@PathVariable("name") String name){
-		
+	@ApiOperation(value = "List an Trainer", notes = "Service to list an trainer")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Trainer found"),
+			@ApiResponse(code = 404, message = "Trainer not found") })
+	public ResponseEntity<Trainer> findByName(@PathVariable("name") String name) {
+
 		Trainer trainer = this.trainerService.findByTrainerName(name);
-		
-		if(trainer == null) {
+
+		if (trainer == null) {
 			return new ResponseEntity<Trainer>(HttpStatus.NOT_FOUND);
 		}
-		
+
 		return new ResponseEntity<>(this.trainerService.findByTrainerName(name), HttpStatus.OK);
 	}
-	
+
 }

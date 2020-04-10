@@ -23,6 +23,7 @@ import lombok.Data;
  */
 @Data
 public class TypeVO {
-	private String typeId;
+
 	private String type;
+	
 }

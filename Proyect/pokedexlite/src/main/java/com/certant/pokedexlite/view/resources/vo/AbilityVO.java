@@ -3,7 +3,6 @@
  */
 package com.certant.pokedexlite.view.resources.vo;
 
-
 import lombok.Data;
 
 /**
@@ -15,7 +14,6 @@ import lombok.Data;
 @Data
 public class AbilityVO {
 
-	private String abilityId;
 	private String ability;
-	
+
 }

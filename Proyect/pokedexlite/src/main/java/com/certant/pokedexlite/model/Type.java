@@ -16,7 +16,7 @@ import org.hibernate.annotations.GenericGenerator;
 import lombok.Data;
 
 /**
- * Clase que representa la tabla Type
+ * Type representative class
  * 
  * @author Matias
  *

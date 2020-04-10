@@ -17,10 +17,8 @@ import lombok.Data;
 @Data
 public class TrainersPokemonsVO {
 
-	private TrainersPokemonsId trainersPokemonsId;
 	private Trainer trainer;
 	private Pokemon pokemon;
 	private int foundedLvl;
-
 
 }
