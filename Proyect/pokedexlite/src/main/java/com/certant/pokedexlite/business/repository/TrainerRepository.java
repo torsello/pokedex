@@ -26,14 +26,6 @@ public interface TrainerRepository extends JpaRepository<Trainer, String> {
 	public Trainer findByTrainerId(String trainerId);
 
 	/**
-	 * Method definition to search trainers by name (Unique)
-	 * 
-	 * @param trainerName
-	 * @return
-	 */
-	public Trainer findByTrainerName(String trainerName);
-
-	/**
 	 * Method definition to search all the pokemons
 	 */
 	public List<Trainer> findAll();

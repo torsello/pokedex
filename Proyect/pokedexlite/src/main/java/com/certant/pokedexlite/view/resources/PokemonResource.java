@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certant.pokedexlite.business.service.AbilityService;
 import com.certant.pokedexlite.business.service.PokemonService;
+import com.certant.pokedexlite.business.service.TrainersPokemonsService;
+import com.certant.pokedexlite.business.service.TypeService;
 import com.certant.pokedexlite.model.Pokemon;
 import com.certant.pokedexlite.view.resources.vo.PokemonVO;
 
@@ -37,9 +40,18 @@ import io.swagger.annotations.ApiResponses;
 public class PokemonResource {
 
 	private PokemonService pokemonService;
+	private AbilityService abilityService;
+	private TypeService typeService;
+	//private PokemonPredecessorService pokemonPredecesorService;
+	private TrainersPokemonsService trainersPokemonsService;
 
-	public PokemonResource(PokemonService pokemonService) {
+	public PokemonResource(PokemonService pokemonService, AbilityService abilityService, TypeService typeService,
+			 TrainersPokemonsService trainersPokemonsService) {
 		this.pokemonService = pokemonService;
+		this.abilityService = abilityService;
+		this.typeService = typeService;
+		//this.pokemonPredecesorService = pokemonPredecesorService;
+		this.trainersPokemonsService = trainersPokemonsService;
 	}
 
 	@PostMapping
@@ -48,34 +60,84 @@ public class PokemonResource {
 			@ApiResponse(code = 400, message = "Invalid request") })
 	public ResponseEntity<Pokemon> createPokemon(@RequestBody PokemonVO pokemonVo) {
 		Pokemon pokemon = new Pokemon();
+		
+		if(pokemonVo.getEvolutionFromName() != null) {
+			Pokemon aux = this.pokemonService.findByName(pokemonVo.getEvolutionFromName());
+			if(aux != null) {
+				pokemon.setEvolutionFrom(aux);
+				aux.getEvolutions().add(pokemon);
+			}
+		}
 
 		pokemon.setName(pokemonVo.getName());
-		pokemon.setEvolution(pokemonVo.getEvolution());
-		pokemon.setEvolutions(pokemonVo.getEvolutions());
 		pokemon.setEvolveLvl(pokemonVo.getEvolveLvl());
-		pokemon.setPokemonsabilities(pokemonVo.getPokemonsabilities());
-		pokemon.setPokemonstypes(pokemonVo.getPokemonstypes());
+		
+		if (pokemonVo.getEvolutions().size() > 0) {
+			for (int i = 0; i < pokemonVo.getEvolutions().size(); i++) {
+				if(pokemonVo.getEvolutions().get(i).getPokemonName() != null) {
+					pokemon.getEvolutions().add(this.pokemonService.findByName(pokemonVo.getEvolutions().get(i).getPokemonName()));		
+				}
+				
+			}
+		}
+		if (pokemonVo.getPokemonsabilities().size() > 0) {
+			for (int i = 0; i < pokemonVo.getPokemonsabilities().size(); i++) {
+				pokemon.getPokemonsabilities()
+						.add(this.abilityService.findByAbility(pokemonVo.getPokemonsabilities().get(i).getAbility()));
+			}
+		}
+		if (pokemonVo.getPokemonstypes().size() > 0) {
+			for (int i = 0; i < pokemonVo.getPokemonstypes().size(); i++) {
+				pokemon.getPokemonstypes()
+						.add(this.typeService.findByType(pokemonVo.getPokemonstypes().get(i).getType()));
+			}
+		}
 
 		return new ResponseEntity<>(this.pokemonService.create(pokemon), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/{pokemonId}")
+	@PutMapping("/{name}")
 	@ApiOperation(value = "Update Pokemon", notes = "Pokemon updater service")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Pokemon successfully updated"),
 			@ApiResponse(code = 404, message = "Pokemon not found") })
-	public ResponseEntity<Pokemon> updatePokemon(@PathVariable("pokemonId") String pokemonId, PokemonVO pokemonVo) {
+	public ResponseEntity<Pokemon> updatePokemon(@PathVariable("name") String name, PokemonVO pokemonVo) {
 
-		Pokemon pokemon = this.pokemonService.findByPokemonId(pokemonId);
+		Pokemon pokemon = this.pokemonService.findByName(name);
 
 		if (pokemon == null) {
 			return new ResponseEntity<Pokemon>(HttpStatus.NOT_FOUND);
 		} else {
+			
+			if(pokemonVo.getEvolutionFromName() != null) {
+				Pokemon aux = this.pokemonService.findByName(pokemonVo.getEvolutionFromName());
+				if(aux != null) {
+					pokemon.setEvolutionFrom(aux);
+					aux.getEvolutions().add(pokemon);
+				}
+			}
+
 			pokemon.setName(pokemonVo.getName());
-			pokemon.setEvolution(pokemonVo.getEvolution());
-			pokemon.setEvolutions(pokemonVo.getEvolutions());
 			pokemon.setEvolveLvl(pokemonVo.getEvolveLvl());
-			pokemon.setPokemonsabilities(pokemonVo.getPokemonsabilities());
-			pokemon.setPokemonstypes(pokemonVo.getPokemonstypes());
+			
+			if (pokemonVo.getEvolutions().size() > 0) {
+				for (int i = 0; i < pokemonVo.getEvolutions().size(); i++) {
+					pokemon.getEvolutions()
+							.add(this.pokemonService.findByName(pokemonVo.getEvolutions().get(i).getPokemonName()));
+				}
+			}
+			if (pokemonVo.getPokemonsabilities().size() > 0) {
+				for (int i = 0; i < pokemonVo.getPokemonsabilities().size(); i++) {
+					pokemon.getPokemonsabilities()
+							.add(this.abilityService.findByAbility(pokemonVo.getPokemonsabilities().get(i).getAbility()));
+				}
+			}
+			if (pokemonVo.getPokemonstypes().size() > 0) {
+				for (int i = 0; i < pokemonVo.getPokemonstypes().size(); i++) {
+					pokemon.getPokemonstypes()
+							.add(this.typeService.findByType(pokemonVo.getPokemonstypes().get(i).getType()));
+				}
+			}
+
 		}
 
 		return new ResponseEntity<>(this.pokemonService.update(pokemon), HttpStatus.OK);
@@ -99,21 +161,6 @@ public class PokemonResource {
 			@ApiResponse(code = 404, message = "pokemons not found") })
 	public ResponseEntity<List<Pokemon>> findAll() {
 		return ResponseEntity.ok(this.pokemonService.findAll());
-	}
-
-	@GetMapping("/{pokemonId}")
-	@ApiOperation(value = "List an Pokemon", notes = "Service to list an pokemon")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Pokemon found"),
-			@ApiResponse(code = 404, message = "Pokemon not found") })
-	public ResponseEntity<Pokemon> findByPokemonId(@PathVariable("pokemonId") String pokemonId) {
-
-		Pokemon pokemon = this.pokemonService.findByPokemonId(pokemonId);
-
-		if (pokemon == null) {
-			return new ResponseEntity<Pokemon>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<>(this.pokemonService.findByPokemonId(pokemonId), HttpStatus.OK);
 	}
 
 	@GetMapping("/{name}")

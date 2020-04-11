@@ -6,6 +6,9 @@ package com.certant.pokedexlite.business.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.certant.pokedexlite.model.Pokemon;
 
@@ -16,14 +19,6 @@ import com.certant.pokedexlite.model.Pokemon;
  *
  */
 public interface PokemonRepository extends JpaRepository<Pokemon, String> {
-
-	/**
-	 * Method definition to search pokemons by id
-	 * 
-	 * @param pokemonId
-	 * @return
-	 */
-	public Pokemon findByPokemonId(String pokemonId);
 
 	/**
 	 * Method definition to search all the pokemons
@@ -38,4 +33,13 @@ public interface PokemonRepository extends JpaRepository<Pokemon, String> {
 	 */
 	public Pokemon findByName(String name);
 
+	/**
+	 * Method definition to search pokemons by pokemonId
+	 * 
+	 * @param pokemonId
+	 * @return
+	 */
+	public Pokemon findByPokemonId(String pokemonId);
+	
+	
 }

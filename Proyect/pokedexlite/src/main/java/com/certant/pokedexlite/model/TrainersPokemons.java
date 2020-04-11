@@ -1,14 +1,17 @@
 
 package com.certant.pokedexlite.model;
 
+import java.util.Objects;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 
@@ -20,8 +23,8 @@ import lombok.Data;
  */
 
 @Data
-@Entity
-@Table(name = "trainerspokemons")
+@Entity(name = "TrainersPokemons")
+@Table(name = "trainers_pokemons")
 public class TrainersPokemons {
 
 	@EmbeddedId
@@ -29,25 +32,45 @@ public class TrainersPokemons {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("trainerId")
-	@JoinColumn(name = "trainerId")
+	@JsonBackReference
 	private Trainer trainer;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("pokemonId")
-	@JoinColumn(name = "pokemonId")
+	@JsonBackReference
 	private Pokemon pokemon;
 
 	@Column(name = "foundedLvl")
 	private int foundedLvl;
 
-	public TrainersPokemons(Trainer trainer, Pokemon pokemon, int foundedLvl) {
+
+	private TrainersPokemons() {
+
+	}
+
+	public TrainersPokemons(Trainer trainer, Pokemon pokemon) {
 		this.trainer = trainer;
 		this.pokemon = pokemon;
-		this.foundedLvl = foundedLvl;
+		this.trainersPokemonsId = new TrainersPokemonsId(trainer.getTrainerId(), pokemon.getPokemonId());
 	}
 
-	public TrainersPokemons() {
-
+	@Override
+	public boolean equals(Object o) {
+		 if (this == o) return true;
+		 
+	        if (o == null || getClass() != o.getClass())
+	            return false;
+	 
+	        TrainersPokemons that = (TrainersPokemons) o;
+	        return Objects.equals(trainer, that.trainer) &&
+	               Objects.equals(pokemon, that.pokemon);
 	}
+
+	@Override
+    public int hashCode() {
+        return Objects.hash(trainer, pokemon);
+    }
+
+	
 
 }

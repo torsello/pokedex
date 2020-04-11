@@ -71,16 +71,6 @@ public class TrainerService {
 	}
 
 	/**
-	 * Method definition to search trainers by name (Unique)
-	 * 
-	 * @param trainerName
-	 * @return
-	 */
-	public Trainer findByTrainerName(String trainerName) {
-		return this.trainerRepository.findByTrainerName(trainerName);
-	}
-
-	/**
 	 * Method definition to search all the trainers
 	 */
 	public List<Trainer> findAll() {

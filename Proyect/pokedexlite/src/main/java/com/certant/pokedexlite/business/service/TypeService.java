@@ -76,4 +76,14 @@ public class TypeService {
 		return this.typeRepository.findByTypeId(typeId);
 	}
 
+	/**
+	 * Method definition to search Types by type
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public Type findByType(String type) {
+		return this.typeRepository.findByType(type);
+	}
+
 }

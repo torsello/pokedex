@@ -3,7 +3,8 @@
  */
 package com.certant.pokedexlite.model;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +19,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -36,36 +40,36 @@ public class Pokemon {
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String pokemonId;
+	
 	@Column(unique = true)
 	private String name;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(columnDefinition = "text", name = "evolvesFromId")
-	private Pokemon evolution;
-	@OneToMany(mappedBy = "evolution", cascade = CascadeType.ALL)
-	private Set<Pokemon> evolutions;
+	
+	@ManyToOne
+	@JoinColumn(name="evolves_from_id")
+	@JsonBackReference
+	private Pokemon evolutionFrom;
+	
+	@OneToMany(mappedBy="evolutionFrom",cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<Pokemon> evolutions;
+	
 	@Column(nullable = true)
 	private int evolveLvl;
-	@OneToMany(mappedBy = "pokemon", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<TrainersPokemons> trainersPokemons;
+	
 	@ManyToMany
 	@JoinTable(name = "pokemonsabilities", joinColumns = @JoinColumn(name = "pokemonId"), inverseJoinColumns = @JoinColumn(name = "abilityId"))
-	private Set<Ability> pokemonsabilities;
+	private List<Ability> pokemonsabilities= new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "pokemonstypes", joinColumns = @JoinColumn(name = "pokemonId"), inverseJoinColumns = @JoinColumn(name = "typeId"))
-	private Set<Type> pokemonstypes;
+	private List<Type> pokemonstypes= new ArrayList<>();
 
 	public Pokemon() {
 
 	}
 
-	public Pokemon(String name, Pokemon evolution, int evolveLvl, Set<Ability> pokemonsabilities,
-			Set<Type> pokemonstypes) {
-		super();
+	public Pokemon(String name, int evolveLvl) {
 		this.name = name;
-		this.evolution = evolution;
 		this.evolveLvl = evolveLvl;
-		this.pokemonsabilities = pokemonsabilities;
-		this.pokemonstypes = pokemonstypes;
 	}
 
 }

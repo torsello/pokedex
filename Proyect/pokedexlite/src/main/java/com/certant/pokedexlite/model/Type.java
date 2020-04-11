@@ -3,12 +3,9 @@
  */
 package com.certant.pokedexlite.model;
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,9 +28,6 @@ public class Type {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String typeId;
 	private String type;
-
-	@ManyToMany(mappedBy = "pokemonstypes")
-	private Set<Pokemon> pokemonstypes;
 
 	public Type() {
 

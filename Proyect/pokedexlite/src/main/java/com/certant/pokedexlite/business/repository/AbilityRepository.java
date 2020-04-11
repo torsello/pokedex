@@ -30,4 +30,12 @@ public interface AbilityRepository extends JpaRepository<Ability, String> {
 	 */
 	public Ability findByAbilityId(String abilityId);
 
+	/**
+	 * Method definition to search abilities by ability
+	 * 
+	 * @param ability
+	 * @return
+	 */
+	public Ability findByAbility(String ability);
+
 }

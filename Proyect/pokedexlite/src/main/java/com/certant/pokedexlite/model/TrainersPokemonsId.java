@@ -22,10 +22,10 @@ import lombok.Data;
 @Embeddable
 public class TrainersPokemonsId implements Serializable {
 
-	@Column(name = "trainerId")
+	@Column(name = "trainer_id")
 	private String trainerId;
 
-	@Column(name = "pokemonId")
+	@Column(name = "pokemon_id")
 	private String pokemonId;
 
 	private TrainersPokemonsId() {
@@ -38,37 +38,20 @@ public class TrainersPokemonsId implements Serializable {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		
+		if(o==null || getClass() != o.getClass())
+			return false;
+		
+		TrainersPokemonsId that = (TrainersPokemonsId) o;
+		return Objects.equals(trainerId, that.trainerId) && Objects.equals(pokemonId, that.pokemonId);
+		
+	}
+	
+	@Override
 	public int hashCode() {
 		return Objects.hash(trainerId, pokemonId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		TrainersPokemonsId other = (TrainersPokemonsId) obj;
-		if (pokemonId == null) {
-			if (other.pokemonId != null) {
-				return false;
-			}
-		} else if (!pokemonId.equals(other.pokemonId)) {
-			return false;
-		}
-		if (trainerId == null) {
-			if (other.trainerId != null) {
-				return false;
-			}
-		} else if (!trainerId.equals(other.trainerId)) {
-			return false;
-		}
-		return true;
 	}
 
 }

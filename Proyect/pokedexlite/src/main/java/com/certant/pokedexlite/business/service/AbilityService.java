@@ -75,4 +75,14 @@ public class AbilityService {
 	public Ability findByAbilityId(String abilityId) {
 		return this.abilityRepository.findByAbilityId(abilityId);
 	}
+	
+	/**
+	 * Method definition to search abilities by name
+	 * 
+	 * @param AbilityName
+	 * @return
+	 */
+	public Ability findByAbility(String ability) {
+		return this.abilityRepository.findByAbility(ability);
+	}
 }

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certant.pokedexlite.business.service.PokemonService;
+import com.certant.pokedexlite.business.service.TrainerService;
 import com.certant.pokedexlite.business.service.TrainersPokemonsService;
 import com.certant.pokedexlite.model.TrainersPokemons;
 import com.certant.pokedexlite.view.resources.vo.TrainersPokemonsVO;
@@ -37,9 +39,16 @@ import io.swagger.annotations.ApiResponses;
 public class TrainersPokemonsResource {
 
 	private TrainersPokemonsService trainersPokemonsService;
+	private PokemonService pokemonService;
+	private TrainerService trainerService;
+	
+	
 
-	public TrainersPokemonsResource(TrainersPokemonsService trainersPokemonsService) {
+	public TrainersPokemonsResource(TrainersPokemonsService trainersPokemonsService, PokemonService pokemonService,
+			TrainerService trainerService) {
 		this.trainersPokemonsService = trainersPokemonsService;
+		this.pokemonService = pokemonService;
+		this.trainerService = trainerService;
 	}
 
 	@PostMapping
@@ -47,10 +56,12 @@ public class TrainersPokemonsResource {
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "TrainerPokemon successfully created"),
 			@ApiResponse(code = 400, message = "Invalid request") })
 	public ResponseEntity<TrainersPokemons> createTrainerPokemon(@RequestBody TrainersPokemonsVO tpVo) {
-		TrainersPokemons tp = new TrainersPokemons();
+		
+		TrainersPokemons tp = new TrainersPokemons(
+				this.trainerService.findByTrainerId(tpVo.getTrainerId()),
+				this.pokemonService.findByPokemonId(tpVo.getPokemonId())			
+				);
 
-		tp.setPokemon(tpVo.getPokemon());
-		tp.setTrainer(tpVo.getTrainer());
 		tp.setFoundedLvl(tpVo.getFoundedLvl());
 
 		return new ResponseEntity<>(this.trainersPokemonsService.create(tp), HttpStatus.CREATED);
@@ -69,8 +80,8 @@ public class TrainersPokemonsResource {
 		if (tp == null) {
 			return new ResponseEntity<TrainersPokemons>(HttpStatus.NOT_FOUND);
 		} else {
-			tp.setPokemon(tpVo.getPokemon());
-			tp.setTrainer(tpVo.getTrainer());
+			tp.setPokemon(this.pokemonService.findByPokemonId(tpVo.getPokemonId()));
+			tp.setTrainer(this.trainerService.findByTrainerId(tpVo.getTrainerId()));
 			tp.setFoundedLvl(tpVo.getFoundedLvl());
 		}
 

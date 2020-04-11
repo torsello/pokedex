@@ -1,10 +1,6 @@
 
 package com.certant.pokedexlite.view.resources.vo;
 
-import com.certant.pokedexlite.model.Pokemon;
-import com.certant.pokedexlite.model.Trainer;
-import com.certant.pokedexlite.model.TrainersPokemonsId;
-
 import lombok.Data;
 
 /**
@@ -17,8 +13,8 @@ import lombok.Data;
 @Data
 public class TrainersPokemonsVO {
 
-	private Trainer trainer;
-	private Pokemon pokemon;
+	private String trainerId;
+	private String pokemonId;
 	private int foundedLvl;
 
 }

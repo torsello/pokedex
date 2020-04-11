@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.certant.pokedexlite.business.service.PokemonService;
 import com.certant.pokedexlite.business.service.TrainerService;
+import com.certant.pokedexlite.business.service.TrainersPokemonsService;
+import com.certant.pokedexlite.model.Pokemon;
 import com.certant.pokedexlite.model.Trainer;
+import com.certant.pokedexlite.model.TrainersPokemons;
 import com.certant.pokedexlite.view.resources.vo.TrainerVO;
 
 import io.swagger.annotations.Api;
@@ -37,9 +41,14 @@ import io.swagger.annotations.ApiResponses;
 public class TrainerResource {
 
 	private TrainerService trainerService;
+	private TrainersPokemonsService tpService;
+	private PokemonService pokemonService;
 
-	public TrainerResource(TrainerService trainerService) {
+	public TrainerResource(TrainerService trainerService, TrainersPokemonsService tpService,
+			PokemonService pokemonService) {
 		this.trainerService = trainerService;
+		this.tpService = tpService;
+		this.pokemonService = pokemonService;
 	}
 
 	@PostMapping
@@ -51,7 +60,7 @@ public class TrainerResource {
 
 		trainer.setTrainerName(trainerVo.getTrainerName());
 		trainer.setTrainerPass(trainerVo.getTrainerPass());
-
+		
 		return new ResponseEntity<>(this.trainerService.create(trainer), HttpStatus.CREATED);
 	}
 
@@ -68,6 +77,8 @@ public class TrainerResource {
 		} else {
 			trainer.setTrainerName(trainerVo.getTrainerName());
 			trainer.setTrainerPass(trainerVo.getTrainerPass());
+			
+			
 		}
 
 		return new ResponseEntity<>(this.trainerService.update(trainer), HttpStatus.OK);
@@ -108,19 +119,5 @@ public class TrainerResource {
 		return new ResponseEntity<>(this.trainerService.findByTrainerId(trainerId), HttpStatus.OK);
 	}
 
-	@GetMapping("/{name}")
-	@ApiOperation(value = "List an Trainer", notes = "Service to list an trainer")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Trainer found"),
-			@ApiResponse(code = 404, message = "Trainer not found") })
-	public ResponseEntity<Trainer> findByName(@PathVariable("name") String name) {
-
-		Trainer trainer = this.trainerService.findByTrainerName(name);
-
-		if (trainer == null) {
-			return new ResponseEntity<Trainer>(HttpStatus.NOT_FOUND);
-		}
-
-		return new ResponseEntity<>(this.trainerService.findByTrainerName(name), HttpStatus.OK);
-	}
 
 }
