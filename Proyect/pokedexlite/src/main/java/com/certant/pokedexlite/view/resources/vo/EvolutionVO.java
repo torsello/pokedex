@@ -7,10 +7,11 @@ import lombok.Data;
 
 /**
  * Evolution Virtual Object
+ * 
  * @author Matias
  *
  */
 @Data
 public class EvolutionVO {
-	private String pokemonName; 
+	private String pokemonName;
 }

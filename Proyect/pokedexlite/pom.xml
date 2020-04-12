@@ -68,13 +68,68 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- Hamcrest -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
+		<finalName>pokedexlite</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>0.21.0</version>
+				<configuration>
+					<images>
+						<image>
+							<name>torsello/${project.build.finalName}</name>
+							<build>
+								<from>openjdk:latest</from>
+								<entryPoint>java -Dspring.profiles.active=prod -jar /Users/torsello/application/${project.build.finalName}.jar</entryPoint>
+								<assembly>
+									<basedir>/Users/torsello/application/</basedir>
+									<descriptorRef>artifact</descriptorRef>
+									<inline>
+										<id>assembly</id>
+										<files>
+											<file>
+												<source>target/${project.build.finalName}.jar</source>
+											</file>
+										</files>
+									</inline>
+								</assembly>
+								<tags>
+									<tag>latest</tag>
+								</tags>
+								<ports>
+									<port>8080</port>
+								</ports>
+							</build>
+							<run>
+								<namingStrategy>alias</namingStrategy>
+							</run>
+							<alias>${project.build.finalName}</alias>
+						</image>
+					</images>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -39,7 +39,7 @@ public class Trainer {
 	private String trainerPass;
 	@OneToMany(mappedBy = "trainer", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
-	private List<TrainersPokemons> trainersPokemons= new ArrayList<>();
+	private List<TrainersPokemons> trainersPokemons = new ArrayList<>();
 
 	public Trainer() {
 

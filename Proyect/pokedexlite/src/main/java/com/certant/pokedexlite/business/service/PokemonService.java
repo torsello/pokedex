@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.certant.pokedexlite.business.repository.PokemonRepository;
-import com.certant.pokedexlite.business.repository.TypeRepository;
 import com.certant.pokedexlite.model.Pokemon;
-import com.certant.pokedexlite.model.Type;
 
 /**
  * Class to define Pokemon's services
@@ -24,7 +22,7 @@ import com.certant.pokedexlite.model.Type;
 public class PokemonService {
 
 	private final PokemonRepository pokemonRepository;
-	
+
 	public PokemonService(PokemonRepository pokemonRepository) {
 		this.pokemonRepository = pokemonRepository;
 	}
@@ -80,12 +78,12 @@ public class PokemonService {
 
 	/**
 	 * Method definition to search pokemons by id
+	 * 
 	 * @param pokemonId
 	 * @return
 	 */
 	public Pokemon findByPokemonId(String pokemonId) {
 		return this.pokemonRepository.findByPokemonId(pokemonId);
 	}
-	
-	
+
 }

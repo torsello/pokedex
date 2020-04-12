@@ -26,7 +26,7 @@ public class PokemonVO {
 	private String name;
 	private int evolveLvl;
 	private String evolutionFromName;
-	private List<EvolutionVO> evolutions= new ArrayList<>();
-	private List<AbilityVO> pokemonsabilities= new ArrayList<>();
-	private List<TypeVO> pokemonstypes= new ArrayList<>();
+	private List<EvolutionVO> evolutions = new ArrayList<>();
+	private List<AbilityVO> pokemonsabilities = new ArrayList<>();
+	private List<TypeVO> pokemonstypes = new ArrayList<>();
 }

@@ -41,8 +41,6 @@ public class TrainersPokemonsResource {
 	private TrainersPokemonsService trainersPokemonsService;
 	private PokemonService pokemonService;
 	private TrainerService trainerService;
-	
-	
 
 	public TrainersPokemonsResource(TrainersPokemonsService trainersPokemonsService, PokemonService pokemonService,
 			TrainerService trainerService) {
@@ -56,11 +54,9 @@ public class TrainersPokemonsResource {
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "TrainerPokemon successfully created"),
 			@ApiResponse(code = 400, message = "Invalid request") })
 	public ResponseEntity<TrainersPokemons> createTrainerPokemon(@RequestBody TrainersPokemonsVO tpVo) {
-		
-		TrainersPokemons tp = new TrainersPokemons(
-				this.trainerService.findByTrainerId(tpVo.getTrainerId()),
-				this.pokemonService.findByPokemonId(tpVo.getPokemonId())			
-				);
+
+		TrainersPokemons tp = new TrainersPokemons(this.trainerService.findByTrainerId(tpVo.getTrainerId()),
+				this.pokemonService.findByPokemonId(tpVo.getPokemonId()));
 
 		tp.setFoundedLvl(tpVo.getFoundedLvl());
 

@@ -6,7 +6,7 @@ package com.certant.pokedexlite.view.resources.vo;
 import lombok.Data;
 
 /**
- * Clase que representa la tabla Ability
+ * Ability virtual object
  * 
  * @author Matias
  *

@@ -41,14 +41,10 @@ import io.swagger.annotations.ApiResponses;
 public class TrainerResource {
 
 	private TrainerService trainerService;
-	private TrainersPokemonsService tpService;
-	private PokemonService pokemonService;
 
 	public TrainerResource(TrainerService trainerService, TrainersPokemonsService tpService,
 			PokemonService pokemonService) {
 		this.trainerService = trainerService;
-		this.tpService = tpService;
-		this.pokemonService = pokemonService;
 	}
 
 	@PostMapping
@@ -60,7 +56,7 @@ public class TrainerResource {
 
 		trainer.setTrainerName(trainerVo.getTrainerName());
 		trainer.setTrainerPass(trainerVo.getTrainerPass());
-		
+
 		return new ResponseEntity<>(this.trainerService.create(trainer), HttpStatus.CREATED);
 	}
 
@@ -77,8 +73,7 @@ public class TrainerResource {
 		} else {
 			trainer.setTrainerName(trainerVo.getTrainerName());
 			trainer.setTrainerPass(trainerVo.getTrainerPass());
-			
-			
+
 		}
 
 		return new ResponseEntity<>(this.trainerService.update(trainer), HttpStatus.OK);
@@ -118,6 +113,5 @@ public class TrainerResource {
 
 		return new ResponseEntity<>(this.trainerService.findByTrainerId(trainerId), HttpStatus.OK);
 	}
-
 
 }

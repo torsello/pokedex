@@ -1,4 +1,4 @@
-package com.certant.pokedexlite;
+/*package com.certant.pokedexlite;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,4 +10,4 @@ class PokedexliteApplicationTests {
 	void contextLoads() {
 	}
 
-}
+}*/

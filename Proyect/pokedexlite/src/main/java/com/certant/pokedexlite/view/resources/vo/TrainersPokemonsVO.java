@@ -4,7 +4,7 @@ package com.certant.pokedexlite.view.resources.vo;
 import lombok.Data;
 
 /**
- * Clase que representa la tabla TrainersPokemons
+ * TrainersPokemons virtual object
  * 
  * @author Matias
  *

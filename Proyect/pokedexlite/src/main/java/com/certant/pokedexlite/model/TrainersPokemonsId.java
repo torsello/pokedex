@@ -39,16 +39,17 @@ public class TrainersPokemonsId implements Serializable {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		
-		if(o==null || getClass() != o.getClass())
+		if (this == o)
+			return true;
+
+		if (o == null || getClass() != o.getClass())
 			return false;
-		
+
 		TrainersPokemonsId that = (TrainersPokemonsId) o;
 		return Objects.equals(trainerId, that.trainerId) && Objects.equals(pokemonId, that.pokemonId);
-		
+
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(trainerId, pokemonId);

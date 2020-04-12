@@ -42,16 +42,11 @@ public class PokemonResource {
 	private PokemonService pokemonService;
 	private AbilityService abilityService;
 	private TypeService typeService;
-	//private PokemonPredecessorService pokemonPredecesorService;
-	private TrainersPokemonsService trainersPokemonsService;
 
-	public PokemonResource(PokemonService pokemonService, AbilityService abilityService, TypeService typeService,
-			 TrainersPokemonsService trainersPokemonsService) {
+	public PokemonResource(PokemonService pokemonService, AbilityService abilityService, TypeService typeService) {
 		this.pokemonService = pokemonService;
 		this.abilityService = abilityService;
 		this.typeService = typeService;
-		//this.pokemonPredecesorService = pokemonPredecesorService;
-		this.trainersPokemonsService = trainersPokemonsService;
 	}
 
 	@PostMapping
@@ -60,10 +55,10 @@ public class PokemonResource {
 			@ApiResponse(code = 400, message = "Invalid request") })
 	public ResponseEntity<Pokemon> createPokemon(@RequestBody PokemonVO pokemonVo) {
 		Pokemon pokemon = new Pokemon();
-		
-		if(pokemonVo.getEvolutionFromName() != null) {
+
+		if (pokemonVo.getEvolutionFromName() != null) {
 			Pokemon aux = this.pokemonService.findByName(pokemonVo.getEvolutionFromName());
-			if(aux != null) {
+			if (aux != null) {
 				pokemon.setEvolutionFrom(aux);
 				aux.getEvolutions().add(pokemon);
 			}
@@ -71,13 +66,14 @@ public class PokemonResource {
 
 		pokemon.setName(pokemonVo.getName());
 		pokemon.setEvolveLvl(pokemonVo.getEvolveLvl());
-		
+
 		if (pokemonVo.getEvolutions().size() > 0) {
 			for (int i = 0; i < pokemonVo.getEvolutions().size(); i++) {
-				if(pokemonVo.getEvolutions().get(i).getPokemonName() != null) {
-					pokemon.getEvolutions().add(this.pokemonService.findByName(pokemonVo.getEvolutions().get(i).getPokemonName()));		
+				if (pokemonVo.getEvolutions().get(i).getPokemonName() != null) {
+					pokemon.getEvolutions()
+							.add(this.pokemonService.findByName(pokemonVo.getEvolutions().get(i).getPokemonName()));
 				}
-				
+
 			}
 		}
 		if (pokemonVo.getPokemonsabilities().size() > 0) {
@@ -107,10 +103,10 @@ public class PokemonResource {
 		if (pokemon == null) {
 			return new ResponseEntity<Pokemon>(HttpStatus.NOT_FOUND);
 		} else {
-			
-			if(pokemonVo.getEvolutionFromName() != null) {
+
+			if (pokemonVo.getEvolutionFromName() != null) {
 				Pokemon aux = this.pokemonService.findByName(pokemonVo.getEvolutionFromName());
-				if(aux != null) {
+				if (aux != null) {
 					pokemon.setEvolutionFrom(aux);
 					aux.getEvolutions().add(pokemon);
 				}
@@ -118,7 +114,7 @@ public class PokemonResource {
 
 			pokemon.setName(pokemonVo.getName());
 			pokemon.setEvolveLvl(pokemonVo.getEvolveLvl());
-			
+
 			if (pokemonVo.getEvolutions().size() > 0) {
 				for (int i = 0; i < pokemonVo.getEvolutions().size(); i++) {
 					pokemon.getEvolutions()
@@ -127,8 +123,8 @@ public class PokemonResource {
 			}
 			if (pokemonVo.getPokemonsabilities().size() > 0) {
 				for (int i = 0; i < pokemonVo.getPokemonsabilities().size(); i++) {
-					pokemon.getPokemonsabilities()
-							.add(this.abilityService.findByAbility(pokemonVo.getPokemonsabilities().get(i).getAbility()));
+					pokemon.getPokemonsabilities().add(
+							this.abilityService.findByAbility(pokemonVo.getPokemonsabilities().get(i).getAbility()));
 				}
 			}
 			if (pokemonVo.getPokemonstypes().size() > 0) {

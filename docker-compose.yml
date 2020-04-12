@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  app:
+    image: torsello/pokedexlite
+    depends_on:
+      - postgres_server
+    ports:
+      - "3000:8080"
+
+  postgres_server:
+    image: postgres:9.6.6-alpine
+    environment:
+      - POSTGRES_DB=pokedex

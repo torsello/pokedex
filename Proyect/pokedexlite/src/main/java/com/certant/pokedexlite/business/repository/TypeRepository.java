@@ -30,7 +30,6 @@ public interface TypeRepository extends JpaRepository<Type, String> {
 	 */
 	public Type findByTypeId(String typeId);
 
-	
 	/**
 	 * Method definition to search Types by type
 	 * 

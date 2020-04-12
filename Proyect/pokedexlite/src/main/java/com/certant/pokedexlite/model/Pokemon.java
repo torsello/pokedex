@@ -40,28 +40,28 @@ public class Pokemon {
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String pokemonId;
-	
+
 	@Column(unique = true)
 	private String name;
-	
+
 	@ManyToOne
-	@JoinColumn(name="evolves_from_id")
+	@JoinColumn(name = "evolves_from_id")
 	@JsonBackReference
 	private Pokemon evolutionFrom;
-	
-	@OneToMany(mappedBy="evolutionFrom",cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "evolutionFrom", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private List<Pokemon> evolutions;
-	
+
 	@Column(nullable = true)
 	private int evolveLvl;
-	
+
 	@ManyToMany
 	@JoinTable(name = "pokemonsabilities", joinColumns = @JoinColumn(name = "pokemonId"), inverseJoinColumns = @JoinColumn(name = "abilityId"))
-	private List<Ability> pokemonsabilities= new ArrayList<>();
+	private List<Ability> pokemonsabilities = new ArrayList<>();
 	@ManyToMany
 	@JoinTable(name = "pokemonstypes", joinColumns = @JoinColumn(name = "pokemonId"), inverseJoinColumns = @JoinColumn(name = "typeId"))
-	private List<Type> pokemonstypes= new ArrayList<>();
+	private List<Type> pokemonstypes = new ArrayList<>();
 
 	public Pokemon() {
 

@@ -43,7 +43,6 @@ public class TrainersPokemons {
 	@Column(name = "foundedLvl")
 	private int foundedLvl;
 
-
 	private TrainersPokemons() {
 
 	}
@@ -56,21 +55,19 @@ public class TrainersPokemons {
 
 	@Override
 	public boolean equals(Object o) {
-		 if (this == o) return true;
-		 
-	        if (o == null || getClass() != o.getClass())
-	            return false;
-	 
-	        TrainersPokemons that = (TrainersPokemons) o;
-	        return Objects.equals(trainer, that.trainer) &&
-	               Objects.equals(pokemon, that.pokemon);
+		if (this == o)
+			return true;
+
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		TrainersPokemons that = (TrainersPokemons) o;
+		return Objects.equals(trainer, that.trainer) && Objects.equals(pokemon, that.pokemon);
 	}
 
 	@Override
-    public int hashCode() {
-        return Objects.hash(trainer, pokemon);
-    }
-
-	
+	public int hashCode() {
+		return Objects.hash(trainer, pokemon);
+	}
 
 }
