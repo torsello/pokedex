@@ -1,10 +1,10 @@
 # Pokedex Lite
 
-Java Aplication that saves and shows the pokemons saw by trainers and it's level (Pokemons' level). 
+A high-tech portable Java Aplication that Pokemon Trainers carry with them to record tokens of all the various Pokémon species they encounter during their journey as trainers.
 
-## Installation
+## Running
 
-Pokedex lite has two installation types.
+Pokedex lite has two running types.
 
 1. Execute on Docker-Compose path:
 ```bash
@@ -27,3 +27,4 @@ or
 Username: matias
 password: 123456
 ```
+Can be changed from application.properties and application-prod.properties
